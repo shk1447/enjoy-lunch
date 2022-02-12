@@ -1,30 +1,28 @@
 import { Get, Route, Post, Delete, Tags, Query, BodyProp } from "tsoa";
 
-import { getRepository } from "typeorm";
-import { IPerson, PersonEntity } from "../data/entities/person";
-
-type a = {
-  name: string;
-};
+import { getCustomRepository } from "typeorm";
+import { PersonDTO } from "../dto/Person.dto";
+import { PersonRepository } from "../data/repositories/PersonRepository";
 
 @Route("person")
 @Tags("Person")
 export default class PersonController {
   @Get("list")
-  public async getPerson(): Promise<Array<IPerson>> {
-    const repo = getRepository<IPerson>(PersonEntity);
-    const list = await repo.find();
-    console.log(list);
-    return list;
+  public async getPerson(): Promise<Array<PersonDTO>> {
+    const repo = getCustomRepository(PersonRepository);
+
+    return repo.getPerson();
   }
   @Post("add")
-  public async addPerson(@BodyProp() name: string): Promise<any> {
-    const repo = getRepository<IPerson>(PersonEntity);
-    await repo.save({ name: name });
-    return {};
+  public async addPerson(@BodyProp() name: string): Promise<PersonDTO> {
+    const repo = getCustomRepository(PersonRepository);
+    repo.addPerson(name);
+    return { name: "test" };
   }
   @Delete("delete")
-  public async deletePerson(): Promise<any> {
-    return {};
+  public async deletePerson(@BodyProp() name: string): Promise<PersonDTO> {
+    const repo = getCustomRepository(PersonRepository);
+    repo.removePerson(name);
+    return { name: "test" };
   }
 }

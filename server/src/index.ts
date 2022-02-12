@@ -5,6 +5,7 @@ import swaggerUi from "swagger-ui-express";
 dotenv.config();
 
 import Router from "./routes";
+import PersonRouter from "./routes/PersonAPI";
 import Connection from "./data";
 
 const port = parseInt(process.env.PORT || "8080");
@@ -27,6 +28,8 @@ app.use(
 );
 
 app.use(Router);
+app.use(PersonRouter);
+
 Connection.then(async (connection) => {
   //await repo.save({ name: "test2" });
   app
