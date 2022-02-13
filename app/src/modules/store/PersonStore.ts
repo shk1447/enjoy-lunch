@@ -8,10 +8,6 @@ import {
   makeAutoObservable,
 } from 'mobx';
 
-enum ExceptionCode {
-  Du,
-}
-
 export class PersonStore {
   @observable list: PersonModel[] = [];
 
