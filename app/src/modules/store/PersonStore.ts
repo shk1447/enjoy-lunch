@@ -8,6 +8,10 @@ import {
   makeAutoObservable,
 } from 'mobx';
 
+enum ExceptionCode {
+  Du,
+}
+
 export class PersonStore {
   @observable list: PersonModel[] = [];
 
@@ -19,6 +23,8 @@ export class PersonStore {
     const { data } = await PersonRepository.addPerson(name);
     if (data.ok && data.result) {
       this.list.push(data.result);
+    } else {
+      alert('Error : ' + data.error);
     }
   };
 
