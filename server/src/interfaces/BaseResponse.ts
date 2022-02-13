@@ -1,6 +1,5 @@
 export interface IResponse<T, R> {
-  status: number;
-  result: Array<T>;
-  meta: R;
-  message: string;
+  ok: boolean;
+  result?: T;
+  error?: R;
 }

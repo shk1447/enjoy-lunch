@@ -1,5 +1,12 @@
 import axios from 'axios';
 import PersonModel from '../model/PersonModel';
+
+export interface IResponse<T, R> {
+  ok: boolean;
+  result?: T;
+  error?: R;
+}
+
 export class PersonRepository {
   baseURL = '/person';
   constructor() {
@@ -7,16 +14,25 @@ export class PersonRepository {
   }
 
   async getPersonList() {
-    const response = axios.get<Array<PersonModel>>(this.baseURL + '/list');
+    const response = await axios.get<IResponse<Array<PersonModel>, string>>(
+      this.baseURL + '/list',
+    );
     return response;
   }
 
   async addPerson(name: string) {
-    await axios.post(this.baseURL + '/add', { name: name });
+    const response = await axios.post<IResponse<PersonModel, string>>(
+      this.baseURL + '/add',
+      { name: name },
+    );
+    return response;
   }
 
   async removePerson(name: string) {
-    await axios.delete(this.baseURL + '/remove/' + name);
+    const response = await axios.delete<IResponse<Array<PersonModel>, string>>(
+      this.baseURL + '/remove/' + name,
+    );
+    return response;
   }
 }
 

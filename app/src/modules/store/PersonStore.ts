@@ -15,17 +15,26 @@ export class PersonStore {
     makeAutoObservable(this);
   }
 
-  @action addPerson = (name: string) => {
-    PersonRepository.addPerson(name);
+  @action addPerson = async (name: string) => {
+    const { data } = await PersonRepository.addPerson(name);
+    if (data.ok && data.result) {
+      this.list.push(data.result);
+    }
   };
 
-  @action removePerson = (name: string) => {
-    PersonRepository.removePerson(name);
+  @action removePerson = async (person: PersonModel) => {
+    const { data } = await PersonRepository.removePerson(person.name);
+
+    if (data.ok) {
+      this.list.splice(this.list.indexOf(person), 1);
+    }
   };
 
   @action getPersonList = async () => {
-    const res = await PersonRepository.getPersonList();
+    const { data } = await PersonRepository.getPersonList();
 
-    this.list = res.data;
+    if (data.ok && data.result) {
+      this.list = data.result;
+    }
   };
 }

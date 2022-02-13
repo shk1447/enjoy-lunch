@@ -7,14 +7,44 @@ export class PersonRepository extends Repository<PersonEntity> {
     super();
   }
   async getPerson() {
-    return await this.find();
+    try {
+      return {
+        ok: true,
+        result: await this.find(),
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        error: error.code,
+      };
+    }
   }
 
   async addPerson(name: string) {
-    await this.save({ name: name });
+    try {
+      return {
+        ok: true,
+        result: await this.save({ name: name }),
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        error: error.code,
+      };
+    }
   }
 
   async removePerson(name: string) {
-    await this.delete({ name: name });
+    try {
+      return {
+        ok: true,
+        result: await this.delete({ name: name }),
+      };
+    } catch (error) {
+      return {
+        ok: false,
+        error: error.code,
+      };
+    }
   }
 }
