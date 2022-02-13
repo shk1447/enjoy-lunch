@@ -86,17 +86,18 @@ const EnjoyLunch = observer(() => {
     <>
       <h1>{list?.length}</h1>
       <div style={{ display: 'flex', justifyContent: 'center', margin: '1em' }}>
-        <Stack direction="row" spacing={1}>
+        <div>
           {list?.map(person => {
             return (
               <Chip
+                style={{ margin: '4px' }}
                 avatar={<Avatar>M</Avatar>}
                 label={person.name}
                 onDelete={() => handleDelete(person)}
               />
             );
           })}
-        </Stack>
+        </div>
       </div>
       <div
         style={{
