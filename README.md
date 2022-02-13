@@ -2,6 +2,9 @@
 
 Let's randomly divide people for lunch time.
 
+![SolidMisson](https://user-images.githubusercontent.com/13011343/153742847-b4d6be74-d330-4ba2-ac11-8e5ebebceb8e.gif)
+
+
 ## Requirements
 
 ### Tasks
